@@ -31,6 +31,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _questionIndex = 0;
+  int _totalScore = 0;
+  // Question List
   List questionList = [
     Question.name(
         "Was Lauryn Hill the first African American woman to win five Grammy Awards in one year?",
@@ -57,6 +60,25 @@ class _MyHomePageState extends State<MyHomePage> {
         "On July 4, 1776, Congress voted to accept the Declaration of Independence?",
         true),
   ];
+
+  _nextQuestion() {
+    setState(() {
+      _questionIndex = (_questionIndex + 1) % questionList.length;
+      print(_questionIndex); // remove later
+    });
+  }
+
+  _checkAnswer(bool userAnswer) {
+    if (userAnswer == questionList[_questionIndex].isCorrect) {
+      _totalScore++;
+      print(
+          "Answer is: ${questionList[_questionIndex].isCorrect}"); // remove later
+    } else {
+      print('$userAnswer pressed'); // remove later
+    }
+    print("Score so far is: $_totalScore / ${questionList.length}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,14 +102,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   border: Border.all(
                       color: Colors.white, style: BorderStyle.solid)),
               child: Text(
-                "${questionList[0].questionText}",
+                "${questionList[_questionIndex].questionText}",
                 style: TextStyle(fontSize: 16),
               ),
             ),
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              RaisedButton(onPressed: () => _checkAnswer(), child: Text("True"),color: Colors.blue.shade200,),
-              RaisedButton(onPressed: () => _checkAnswer(), child: Text("False"),color: Colors.blue.shade200),
-              RaisedButton(onPressed: () => _checkAnswer(), child: Text("Next"),color: Colors.blue.shade200),
+              RaisedButton(
+                onPressed: () => _checkAnswer(true),
+                child: Text("True"),
+                color: Colors.blue.shade200,
+              ),
+              RaisedButton(
+                  onPressed: () => _checkAnswer(false),
+                  child: Text("False"),
+                  color: Colors.blue.shade200),
+              RaisedButton(
+                  onPressed: () => _nextQuestion(),
+                  child: Text("Next"),
+                  color: Colors.blue.shade200),
             ]),
             Spacer(),
           ],
@@ -95,8 +127,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-}
-
-_checkAnswer() {
-  print('button pressed');
 }
