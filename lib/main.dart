@@ -40,14 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         centerTitle: true,
       ),
+      backgroundColor: Colors.blue.shade100,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Flutter Quiz App',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
+  
+            Image.asset('assets/flag.png', width: 250, height: 180),
 
           ],
         ),

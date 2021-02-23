@@ -1,5 +1,5 @@
 name: flutter_quiz_app
-description: A new Flutter project.
+description: Flutter Quiz App project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -21,9 +21,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/flag.png
 
   # fonts:
   #   - family: Schyler
