@@ -68,15 +68,23 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  _checkAnswer(bool userAnswer) {
+  _checkAnswer(bool userAnswer, BuildContext context) {
+    var answerResult;
     if (userAnswer == questionList[_questionIndex].isCorrect) {
       _totalScore++;
-      print(
-          "Answer is: ${questionList[_questionIndex].isCorrect}"); // remove later
+      print('$userAnswer pressed'); // remove later
+      answerResult = "Answer is: ${questionList[_questionIndex].isCorrect}";
+      print(answerResult); // remove later
     } else {
       print('$userAnswer pressed'); // remove later
+      answerResult = "Answer is: ${questionList[_questionIndex].isCorrect}";
+      print(answerResult); // remove later
+
     }
     print("Score so far is: $_totalScore / ${questionList.length}");
+
+    final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -87,44 +95,47 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
       ),
       backgroundColor: Colors.blue.shade100,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset('assets/flag.png', width: 250, height: 180),
-            Container(
-              margin: EdgeInsets.all(15),
-              height: 120,
-              padding: EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                      color: Colors.white, style: BorderStyle.solid)),
-              child: Text(
-                "${questionList[_questionIndex].questionText}",
-                style: TextStyle(fontSize: 16),
+      body: Builder(
+        builder: (BuildContext context) => Container(
+          child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset('assets/flag.png', width: 250, height: 180),
+              Container(
+                margin: EdgeInsets.all(15),
+                height: 120,
+                padding: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                        color: Colors.white, style: BorderStyle.solid)),
+                child: Text(
+                  "${questionList[_questionIndex].questionText}",
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              RaisedButton(
-                onPressed: () => _checkAnswer(true),
-                child: Text("True"),
-                color: Colors.blue.shade200,
-              ),
-              RaisedButton(
-                  onPressed: () => _checkAnswer(false),
-                  child: Text("False"),
-                  color: Colors.blue.shade200),
-              RaisedButton(
-                  onPressed: () => _nextQuestion(),
-                  child: Text("Next"),
-                  color: Colors.blue.shade200),
-            ]),
-            Spacer(),
-          ],
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                RaisedButton(
+                  onPressed: () => _checkAnswer(true, context),
+                  child: Text("True"),
+                  color: Colors.blue.shade200,
+                ),
+                RaisedButton(
+                    onPressed: () => _checkAnswer(false, context),
+                    child: Text("False"),
+                    color: Colors.blue.shade200),
+                RaisedButton(
+                    onPressed: () => _nextQuestion(),
+                    child: Text("Next"),
+                    color: Colors.blue.shade200),
+              ]),
+              Spacer(),
+            ],
+          ),
         ),
-      ),
+      ),),
     );
   }
 }
