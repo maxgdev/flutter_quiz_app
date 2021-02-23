@@ -36,8 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
   // Question List
   List questionList = [
     Question.name(
-        "Was Lauryn Hill the first African American woman to win five Grammy Awards in one year?",
-        true),
+        "Lauryn Hill was NOT the first African American woman to win five Grammy Awards in one year?",
+        false),
     Question.name(
         "Hiram Rhodes Revels was the first African-American to graduate from Harvard University and become a U.S. senator??",
         true),
@@ -72,18 +72,20 @@ class _MyHomePageState extends State<MyHomePage> {
     var answerResult;
     if (userAnswer == questionList[_questionIndex].isCorrect) {
       _totalScore++;
-      print('$userAnswer pressed'); // remove later
-      answerResult = "Answer is: ${questionList[_questionIndex].isCorrect}";
-      print(answerResult); // remove later
+      
+      answerResult = "Answer is correct";
+      
     } else {
-      print('$userAnswer pressed'); // remove later
-      answerResult = "Answer is: ${questionList[_questionIndex].isCorrect}";
-      print(answerResult); // remove later
+      
+      answerResult = "Answer is incorrect";
+    
 
     }
-    print("Score so far is: $_totalScore / ${questionList.length}");
+    // print("Score so far is: $_totalScore / ${questionList.length}");
 
-    final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
+    final snackBar = SnackBar(
+      duration: Duration(milliseconds: 500),
+      content: Text(answerResult));
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
